@@ -5,9 +5,11 @@ import { userNameExist } from "./localstorage/localstorageTodo";
 import styled from "styled-components";
 
 const Container = styled.div`
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "Roboto", sans-serif;
 `
 
 function App() {
@@ -20,8 +22,7 @@ function App() {
 
   return (
     <Container>
-      {isUserNameExist === false && <UserGetName/>}
-      <MainTodoApp/>
+      {isUserNameExist === false ? <UserGetName setIsUserNameExist={setIsUserNameExist}/>: <MainTodoApp/>}
     </Container>
     
   );
