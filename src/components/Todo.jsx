@@ -1,31 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import TodoEdit from "./TodoEdit";
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import styled from "styled-components";
 import { updateTodo } from '../api/todoOperations';
+
+const TodoMaster = styled.div`
+  width: 100%;
+  height: 20%;
+  padding: 1em;
+  border: 1px solid #D9D9D9;
+  border-radius: 1em;
+  background-color: #e6e6e6;
+  margin-bottom: 1em;
+
+`
 
 const TodoContainer = styled.div`
     display: flex;
     flex-direction: column;
-    height: 20%;
-    border: 1px solid #D9D9D9;
-    border-radius: 1em;
-    padding: 1em;
-    margin-bottom: 1em;
-    background-color: #e6e6e6;
+    height: 100%;
 `
+
 const TodoIdContainer = styled.div`
     height: 20%;
-    font-size: 1.5em;
-    color: #a8a7a7;
+    width: 100%;
+
+`
+const TodoId = styled.span`
+      font-size: 1.5em;
+      color: #a8a7a7;
 `
 const TodoContent = styled.div`
-    height: 40%;
+    width: 100%;
+    height: 50%;
     font-size: 2em;
     color: #0C0C0D;
     padding: 1em;
@@ -36,14 +42,26 @@ const TodoContentTextArea = styled.textarea`
   border: 0em;
   padding: 0;
   margin: 0;
+  width: 90%;
+  height: 90%;
+  font-size: 1em;
+  overflow: hidden;
 `
 
-const TodoButtons = styled.div`
+const TodoButtonsContainer = styled.div`
     height: 30%;
     display: flex;
     align-items: center;
     padding: 1em;
     justify-content: space-between;
+`
+
+const TodoButtons = styled.div`
+  width: 80%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  
 `
 
 const TodoCheckBoxContainer = styled.div`
@@ -69,41 +87,64 @@ const TodoEditButton = styled.button`
     &:hover{
       background-color: lightgrey;
     }
+    margin-right: 2%;
+`
+const TodoDeleteButton = styled.button`
+  width: 30%;
+    height: 100%;
+    background-color: #e22c2c;
+    border-radius: 1em;
+    border: 0px;
+    &:hover{
+      background-color: #ffffff;
+      color: #e22c2c;
+    }
+    color: white;
 `
 
-function Todo({todoObj}) {
+function Todo({todoObj, handleDelete, nightMode}) {
 
   const [editMode, setEditMode] = useState(false);
   const [todo, setTodo] = useState(todoObj);
-  const handleClick = () =>{
+
+  const handleEdit = () =>{
     setEditMode(true);
   }
+
   const handleCheckBoxChange = async e =>{
     const tempTodo = {...todo, isCompleted: !todo.isCompleted};
     setTodo(tempTodo);
     await updateTodo(todo.id, tempTodo);
   }
+
   return (
-    
-    <TodoContainer>
-      {editMode === true ? <TodoEdit setTodo={setTodo} setEdit={setEditMode} todo={todo}/> : <div>
-        <TodoIdContainer>TODO #{todo.id}</TodoIdContainer>
-        <TodoContent>
+    <TodoMaster>
+      {editMode === true ? <TodoEdit setTodo={setTodo} setEdit={setEditMode} todo={todo}/> : <TodoContainer>
+      <TodoIdContainer>
+        <TodoId>#TODO {todo.id}</TodoId>
+        </TodoIdContainer>
+      <TodoContent>
+        <TodoContentTextArea disabled rows={3} cols={60}>
           {todo.content}
-        </TodoContent>
-        <TodoButtons>
+        </TodoContentTextArea>
+      </TodoContent>
+        <TodoButtonsContainer>
         <TodoCheckBoxContainer>
           <input type={'checkbox'} checked={todo.isCompleted === true ? "checked" : ""} onChange={e => handleCheckBoxChange(e)}/>
           <TodoCheckboxText>Yapıldı</TodoCheckboxText>
         </TodoCheckBoxContainer>
 
-        <TodoEditButton onClick={() => handleClick()}>Düzenle</TodoEditButton>
-        
+        <TodoButtons>
+          <TodoEditButton onClick={() => handleEdit()}>Düzenle</TodoEditButton>
+          <TodoDeleteButton onClick={() => handleDelete(todo.id)}>Sil</TodoDeleteButton>
         </TodoButtons>
-      </div>}
-      
         
-    </TodoContainer>
+        
+        </TodoButtonsContainer>
+
+        </TodoContainer>}
+    </TodoMaster>
+    
   )
 }
 

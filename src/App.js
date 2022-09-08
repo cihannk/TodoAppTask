@@ -4,16 +4,21 @@ import UserGetName from "./components/UserGetName";
 import { userNameExist } from "./localstorage/localstorageTodo";
 import styled from "styled-components";
 
-const Container = styled.div`
+
+
+function App() {
+  const [isUserNameExist, setIsUserNameExist] = useState(true);
+  const [nightMode, setNightMode] = useState(false);
+
+  const Container = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Roboto", sans-serif;
-`
+  background-color: ${nightMode === true && 'rgb(21, 32, 43)'};
 
-function App() {
-  const [isUserNameExist, setIsUserNameExist] = useState(true);
+`
 
   useEffect(()=>{
     const result = userNameExist();
@@ -22,7 +27,7 @@ function App() {
 
   return (
     <Container>
-      {isUserNameExist === false ? <UserGetName setIsUserNameExist={setIsUserNameExist}/>: <MainTodoApp/>}
+      {isUserNameExist === false ? <UserGetName setIsUserNameExist={setIsUserNameExist}/>: <MainTodoApp nightMode={nightMode} setNightMode={setNightMode}/>}
     </Container>
     
   );

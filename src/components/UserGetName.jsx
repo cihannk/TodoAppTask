@@ -11,7 +11,7 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const Header = styled.span`
+const Title = styled.span`
   font-size: 3em;
   margin-bottom: 0.5em;
 `
@@ -48,13 +48,14 @@ function UserGetName({setIsUserNameExist}) {
   }
 
   return (
-    <Container>
-        <Header>
+      <Container>
+        <Title>
           Kullanıcı adın
-        </Header>
+        </Title>
         <Input type="text" onChange={ch => setName(ch.target.value)}></Input>
         <Button onClick={(e => handleClick())}>Onayla</Button>
     </Container>
+    
   )
 }
 
