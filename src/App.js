@@ -5,7 +5,6 @@ import { getNightMode, userNameExist } from "./localstorage/localstorageTodo";
 import styled from "styled-components";
 
 
-
 function App() {
   const [isUserNameExist, setIsUserNameExist] = useState(true);
   const [nightMode, setNightMode] = useState(true);
@@ -16,19 +15,20 @@ function App() {
     setIsUserNameExist(result);
 
     const isNightMode = getNightMode();
-    console.log("isNightMode", isNightMode);
     setNightMode(isNightMode);
   },[])
 
   const Container = styled.div`
-  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Roboto", sans-serif;
-  background-color: ${nightMode === true && 'rgb(21, 32, 43)'};
+    width: 100vw;
+    height: 100vh;
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto", sans-serif;
+    background-color: ${nightMode === true ? 'rgb(21, 32, 43)': "white"};
 
-  `
+`
 
   return (
     <Container>
