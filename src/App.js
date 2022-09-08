@@ -1,14 +1,24 @@
 import { useState, useEffect } from "react"; 
 import MainTodoApp from "./components/MainTodoApp";
 import UserGetName from "./components/UserGetName";
-import { userNameExist } from "./localstorage/localstorageTodo";
+import { getNightMode, userNameExist } from "./localstorage/localstorageTodo";
 import styled from "styled-components";
 
 
 
 function App() {
   const [isUserNameExist, setIsUserNameExist] = useState(true);
-  const [nightMode, setNightMode] = useState(false);
+  const [nightMode, setNightMode] = useState(true);
+
+
+  useEffect(()=>{
+    const result = userNameExist();
+    setIsUserNameExist(result);
+
+    const isNightMode = getNightMode();
+    console.log("isNightMode", isNightMode);
+    setNightMode(isNightMode);
+  },[])
 
   const Container = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
@@ -18,12 +28,7 @@ function App() {
   font-family: "Roboto", sans-serif;
   background-color: ${nightMode === true && 'rgb(21, 32, 43)'};
 
-`
-
-  useEffect(()=>{
-    const result = userNameExist();
-    setIsUserNameExist(result);
-  },[])
+  `
 
   return (
     <Container>

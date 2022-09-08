@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import { getNightMode, setNightModeLocal } from '../localstorage/localstorageTodo';
 
 const Container = styled.div`
     display: flex;
@@ -10,7 +11,7 @@ const Container = styled.div`
     justify-content: space-between;
 `
 const Title = styled.h1`
-
+    color: gray;
 `
 const NightmodeButton = styled.div`
     display: flex;
@@ -30,15 +31,25 @@ const NormalmodeButton = styled.div`
 `
 
 function Header({setNightMode, nightMode}) {
+
+    const handleNightMode = (isNightMode) => {
+        if (isNightMode){
+            setNightMode(true);
+            setNightModeLocal(true);
+        }else{
+            setNightMode(false);
+            setNightModeLocal(false);
+        }
+    }
   return (
     <Container>
         <Title>Todo App</Title>
         <div>
             {nightMode === true ?
-            <NormalmodeButton onClick={() => setNightMode(false)}>
+            <NormalmodeButton onClick={() => handleNightMode(false)}>
                 <WbSunnyIcon/>
             </NormalmodeButton> :
-            <NightmodeButton onClick={() => setNightMode(true)}>
+            <NightmodeButton onClick={() => handleNightMode(true)}>
                 <ModeNightIcon/>
             </NightmodeButton>}
         

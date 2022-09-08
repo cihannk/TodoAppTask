@@ -11,3 +11,14 @@ export const removeUsername = () =>{
 export const userNameExist = () =>{
     return getFromLocalStorage("username") !== null ? true : false;
 }
+
+export const setNightModeLocal = (nightmode) =>{
+    if (nightmode){
+        saveToLocalStorage("nightMode", nightmode);
+    }else{
+        saveToLocalStorage("nightMode", false);
+    }
+}
+export const getNightMode = () => {
+    return getFromLocalStorage("nightMode");
+}

@@ -124,9 +124,7 @@ function Todo({todoObj, handleDelete, nightMode}) {
         <TodoId>#TODO {todo.id}</TodoId>
         </TodoIdContainer>
       <TodoContent>
-        <TodoContentTextArea disabled rows={3} cols={60}>
-          {todo.content}
-        </TodoContentTextArea>
+        <TodoContentTextArea disabled rows={3} cols={60} value={todo.content}/>
       </TodoContent>
         <TodoButtonsContainer>
         <TodoCheckBoxContainer>
