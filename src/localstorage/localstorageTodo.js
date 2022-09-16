@@ -14,11 +14,14 @@ export const userNameExist = () =>{
 
 export const setNightModeLocal = (nightmode) =>{
     if (nightmode){
-        saveToLocalStorage("nightMode", nightmode);
+        saveToLocalStorage("nightMode", true);
     }else{
         saveToLocalStorage("nightMode", false);
     }
 }
 export const getNightMode = () => {
-    return getFromLocalStorage("nightMode");
+    if (getFromLocalStorage("nightMode") === "true") {
+        return true;
+    }
+    return false;
 }

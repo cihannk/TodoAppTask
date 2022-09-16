@@ -14,6 +14,7 @@ const Container = styled.div`
 const Title = styled.span`
   font-size: 3em;
   margin-bottom: 0.5em;
+  color: gray;
 `
 const Input = styled.input`
   padding: 1em 4em;
@@ -23,12 +24,14 @@ const Input = styled.input`
   font-size: 1em;
   font-weight: 600;
   margin-bottom: 1em;
+  background-color: transparent;
+  color: gray;
 
 `
 const Button = styled.button`
   margin-top: 0.5em;
   padding: 1em 4em;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   border-radius: 0.4em;
   background-color: transparent;
   &:hover{
@@ -36,6 +39,7 @@ const Button = styled.button`
     border: 0em
   }
   font-weight: 600;
+  color: gray;
 `
 
 

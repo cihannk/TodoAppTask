@@ -23,7 +23,7 @@ const TodoEditInput = styled.input`
 
 `
 
-const TodoEditButton = styled.button`
+const TodoEditButton = styled.input`
     width: 25%;
     background-color: transparent;
     &:hover{
@@ -43,23 +43,32 @@ function TodoEdit({todo, setEdit, setTodo}) {
         document.getElementById("todoEditInput").setAttribute("value", todo.content);
     },[]);
 
-  const handleClick = async () => {
-    setTodo({...todo, content: editContent});
-    setEdit(false);
-    await updateTodo(todo.id, {"content": editContent, "isCompleted": todo.isCompleted});
+
+  const handleSubmit = async e => {
+    if (editContent.length < 3 ){
+        setEdit(false);
+    }
+    else{
+        e.preventDefault();
+        setTodo({...todo, content: editContent});
+        setEdit(false);
+        await updateTodo(todo.id, {"content": editContent, "isCompleted": todo.isCompleted});
+    }
+    
   }
 
   const handleChange = e =>{
     setEditContent(e.target.value);
   }
   return (
+    <form onSubmit={e => handleSubmit(e)}>
     <TodoEditContainer>
         <TodoEditButtons>
-            <TodoEditInput id="todoEditInput" type={'text'} onChange={e => handleChange(e)}></TodoEditInput>
-            <TodoEditButton onClick={() => handleClick()}>Değiştir</TodoEditButton>
+            <TodoEditInput minLength={3} id="todoEditInput" type={'text'} onChange={e => handleChange(e)}></TodoEditInput>
+            <TodoEditButton type="submit" value="Değiştir"/>
         </TodoEditButtons>
-        
     </TodoEditContainer>
+    </form>
   )
 }
 

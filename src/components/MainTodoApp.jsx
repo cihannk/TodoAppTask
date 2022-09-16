@@ -8,7 +8,6 @@ import AddTodo from './AddTodo';
 
 const TodosContainer = styled.div`
     width: 50vw;
-    height: 100vh;
     padding: 1em;
 `
 const AddTodoButtonContainer = styled.div`
@@ -32,7 +31,7 @@ const AddTodoButton = styled.button`
     
 `
 
-function MainTodoApp({nightMode, setNightMode}) {
+function MainTodoApp({nightMode, setNightMode, setTodoCount}) {
     const [todos, setTodos] = useState([]);
     const [addTodo, setAddTodo] = useState(false);
 
@@ -49,6 +48,7 @@ function MainTodoApp({nightMode, setNightMode}) {
     const saveTodosToState = async () =>  {
         const result= await getTodos();
         setTodos(result.data);
+        setTodoCount(result.data.length)
 
     }
 

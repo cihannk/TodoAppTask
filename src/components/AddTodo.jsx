@@ -26,50 +26,62 @@ const AddTodoContainerInput = styled.input`
     border-radius: 0.5em;
     margin: 2em 0em;
     font-size: 1em;
-    padding: 0em 2em;
+    padding: 2em 2em;
 `
-const AddTodoContainerButton = styled.button`
+const AddTodoContainerButton = styled.input`
     height: 20%;
     background-color: transparent;
     border: 1px solid lightgray;
-    color: white;
+    color: #000000;
     font-weight: 600;
     &:hover{
         background-color: #b6b6b6;
     }
     margin-bottom: 1em;
+    padding: 1em 2em;
 `
 
 const IgnoreTodoContainerButton = styled.button`
     height: 20%;
     background-color: transparent;
     border: 1px solid lightgray;
-    color: red;
+    color: #a00000;
     font-weight: 600;
     &:hover{
         background-color: #b6b6b6;
     }
     margin-bottom: 1em;
+    padding: 0.7em 1em;
 `
 
 function AddTodo({setAddTodo, setTodos, todos}) {
     const [todoContent, setTodoContent] = useState("");
-    const handleClick = async() =>{
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         setAddTodo(false);
-        setTodos([...todos, {"content": todoContent, "isCompleted": false}]);
-        await addTodo({"content": todoContent, "isCompleted": false });
+        if (todoContent.length < 3){
+            
+        }else{
+            setTodos([...todos, {"content": todoContent, "isCompleted": false}]);
+            await addTodo({"content": todoContent, "isCompleted": false });
+        }
+
     }
     const handleChange = e => {
         setTodoContent(e.target.value);
     }
   return (
+    <form onSubmit={e => handleSubmit(e)}>
     <AddTodoContainer>
+            
             <AddTodoContainerTitle>Todo</AddTodoContainerTitle>
-            <AddTodoContainerInput onChange={e => handleChange(e)}/>
-            <AddTodoContainerButton onClick={()=> handleClick()}>Ekle</AddTodoContainerButton>
-            <IgnoreTodoContainerButton onClick={() => setAddTodo(false)}>Vazgeç</IgnoreTodoContainerButton>
+            <AddTodoContainerInput minLength={3} onChange={e => handleChange(e)}/>
+            <AddTodoContainerButton type="submit" value="Ekle" />
+            <IgnoreTodoContainerButton onClick={() => setAddTodo(false)}>Vazgeç</IgnoreTodoContainerButton> 
 
     </AddTodoContainer>
+    </form>
   )
 }
 

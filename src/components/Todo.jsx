@@ -5,7 +5,7 @@ import { updateTodo } from '../api/todoOperations';
 
 const TodoMaster = styled.div`
   width: 100%;
-  height: 20%;
+  height: 20vh;
   padding: 1em;
   border: 1px solid #D9D9D9;
   border-radius: 1em;
